@@ -1,14 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace TestExersize.Models;
 public class Material{
-    private int Id;
-    private string? Name;
-    private decimal Price;
-    private int SellerId;
-    public Material(){}
-    public Material(int id, string name, decimal price, int sellerId){
-        Id=id;
-        Name=name;
-        Price=price;
-        SellerId=sellerId;
-    }
+    [Key]
+    public int Id { get; set; }
+    public string? Name { get; set; }
+    public decimal Price { get; set; }
+    public int SellerId { get; set; }
 }
