@@ -51,37 +51,6 @@ namespace TestExersize.Controllers
             return material;
         }
 
-       /* // PUT: api/Material/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMaterial(int id, Material material)
-        {
-            if (id != material.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(material).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MaterialExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }*/
-
         // POST: api/Material
         // создание нового материала с указанием продавца
         [HttpPost]

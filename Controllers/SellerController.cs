@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestExersize.Models;
@@ -50,38 +45,7 @@ namespace TestExersize.Controllers
 
             return seller;
         }
-
-        /*// PUT: api/Seller/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSeller(int id, Seller seller)
-        {
-            if (id != seller.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(seller).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SellerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-*/
+        
         // POST: api/Seller
         // создание нового продавца
         [HttpPost]
