@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "iikO1BcQPWTQ3hPxNP1svWufpBbbteR8OHy6gPYl3gJf6y/ZIhR7U0NF9fpSeg5MtHkIWKuG9npPUBMCFKTt0A==",
+  "dgSpecHash": "EoGgp+M4XedHGomX5Ii5pN23xr/4qK/klkuuKxPBlurGGsMcNyTriTSYhdBE4pjKErCGYOWpY6TB+7CWTtdk9w==",
   "success": true,
   "projectFilePath": "C:\\Users\\danan\\Downloads\\TestExersize\\TestExersize.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danan\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\danan\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\danan\\.nuget\\packages\\fluentvalidation\\11.8.0\\fluentvalidation.11.8.0.nupkg.sha512",
+    "C:\\Users\\danan\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\danan\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\danan\\.nuget\\packages\\hangfire.aspnetcore\\1.8.6\\hangfire.aspnetcore.1.8.6.nupkg.sha512",
     "C:\\Users\\danan\\.nuget\\packages\\hangfire.core\\1.8.6\\hangfire.core.1.8.6.nupkg.sha512",
     "C:\\Users\\danan\\.nuget\\packages\\hangfire.memorystorage\\1.8.0\\hangfire.memorystorage.1.8.0.nupkg.sha512",

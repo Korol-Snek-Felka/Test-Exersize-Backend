@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestExersize.Models;
+using FluentValidation;
 
 namespace TestExersize.Controllers
 {
@@ -9,10 +10,12 @@ namespace TestExersize.Controllers
     public class SellerController : ControllerBase
     {
         private readonly TestExersizeContext _context;
+        private readonly IValidator<Seller> _sellerValidator;
 
-        public SellerController(TestExersizeContext context)
+        public SellerController(TestExersizeContext context, IValidator<Seller> sellerValidator)
         {
             _context = context;
+            _sellerValidator = sellerValidator;
         }
 
         // GET: api/Seller
@@ -51,36 +54,53 @@ namespace TestExersize.Controllers
         [HttpPost]
         public async Task<ActionResult<Seller>> PostSeller(Seller seller)
         {
-          if (_context.SellerItems == null)
-          {
-              return Problem("Entity set 'TestExersizeContext.SellerItems'  is null.");
-          }
-            _context.SellerItems.Add(seller);
-            await _context.SaveChangesAsync();
 
+        if (_context.SellerItems == null)
+        {
+            return Problem("Entity set 'TestExersizeContext.SellerItems'  is null.");
+        }
+        _context.SellerItems.Add(seller);
+        await _context.SaveChangesAsync();
+
+        //проверка валидации
+        var validationResult = _sellerValidator.Validate(seller);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors);
+        }
             return CreatedAtAction(nameof(GetSeller), new { id = seller.Id, name = seller.Name }, seller);
         }
 
         // POST: api/Seller
         // обновление информации о продавце
         [HttpPost("{id}")]
-        public async Task<ActionResult<Seller>> UpdateSeller(int id, Seller seller){
-            if (_context.SellerItems == null)
-          {
-              return NotFound();
-          }
-            var updatingSeller = await _context.SellerItems.FindAsync(id);
+        public async Task<ActionResult<Seller>> UpdateSeller(int id, Seller seller){ 
 
-            if (updatingSeller == null)
-            {
-                return NotFound();
-            }
-             _context.SellerItems.Remove(updatingSeller);//удаление старого продавца
-             _context.SellerItems.Add(seller);//добавление нового продавца
-             
-             await _context.SaveChangesAsync();
-             return CreatedAtAction(nameof(GetSeller), new { id = seller.Id, name = seller.Name }, seller);
+        if (_context.SellerItems == null)
+        {
+            return NotFound();
         }
+
+        //поиск обновляемого продавца
+        var updatingSeller = await _context.SellerItems.FindAsync(id);
+        if (updatingSeller == null)
+        {
+            return NotFound();
+        }
+        _context.SellerItems.Remove(updatingSeller);//удаление старого продавца
+        _context.SellerItems.Add(seller);//добавление нового продавца
+        
+        //проверка валидации
+        var validationResult = _sellerValidator.Validate(seller);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors);
+        }
+
+        await _context.SaveChangesAsync();
+        return CreatedAtAction(nameof(GetSeller), new { id = seller.Id, name = seller.Name }, seller);
+        }
+
         // DELETE: api/Seller/5
         //удаление продавца
         [HttpDelete("{id}")]

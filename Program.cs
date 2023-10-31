@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using TestExersize.Models;
 using Hangfire;
 using Hangfire.MemoryStorage;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+//using FluentValidationInAspCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,12 @@ builder.Services.AddSwaggerGen();
 // Configure Hangfire with in-memory storage
 builder.Services.AddHangfire(configuration => configuration.UseMemoryStorage());
 builder.Services.AddHangfireServer();
+
+// Add validation
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<SellerValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<MaterialValidator>();
 
 var app = builder.Build();
 
