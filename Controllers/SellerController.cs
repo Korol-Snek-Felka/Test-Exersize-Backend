@@ -25,7 +25,7 @@ namespace TestExersize.Controllers
         {
           if (_context.SellerItems == null)
           {
-              return NotFound();
+            return NotFound();
           }
             return await _context.SellerItems.ToListAsync();
         }
@@ -55,19 +55,13 @@ namespace TestExersize.Controllers
         public async Task<ActionResult<Seller>> PostSeller(Seller seller)
         {
 
-        if (_context.SellerItems == null)
-        {
-            return Problem("Entity set 'TestExersizeContext.SellerItems'  is null.");
-        }
-        _context.SellerItems.Add(seller);
-        await _context.SaveChangesAsync();
+            if (_context.SellerItems == null)
+            {
+                return Problem("Entity set 'TestExersizeContext.SellerItems'  is null.");
+            }
+            _context.SellerItems.Add(seller);
+            await _context.SaveChangesAsync();
 
-        //проверка валидации
-        var validationResult = _sellerValidator.Validate(seller);
-        if (!validationResult.IsValid)
-        {
-            return BadRequest(validationResult.Errors);
-        }
             return CreatedAtAction(nameof(GetSeller), new { id = seller.Id, name = seller.Name }, seller);
         }
 
@@ -76,29 +70,22 @@ namespace TestExersize.Controllers
         [HttpPost("{id}")]
         public async Task<ActionResult<Seller>> UpdateSeller(int id, Seller seller){ 
 
-        if (_context.SellerItems == null)
-        {
-            return NotFound();
-        }
+            if (_context.SellerItems == null)
+            {
+                return NotFound();
+            }
 
-        //поиск обновляемого продавца
-        var updatingSeller = await _context.SellerItems.FindAsync(id);
-        if (updatingSeller == null)
-        {
-            return NotFound();
-        }
-        _context.SellerItems.Remove(updatingSeller);//удаление старого продавца
-        _context.SellerItems.Add(seller);//добавление нового продавца
-        
-        //проверка валидации
-        var validationResult = _sellerValidator.Validate(seller);
-        if (!validationResult.IsValid)
-        {
-            return BadRequest(validationResult.Errors);
-        }
+            //поиск обновляемого продавца
+            var updatingSeller = await _context.SellerItems.FindAsync(id);
+            if (updatingSeller == null)
+            {
+                return NotFound();
+            }
+            _context.SellerItems.Remove(updatingSeller);//удаление старого продавца
+            _context.SellerItems.Add(seller);//добавление нового продавца
 
-        await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetSeller), new { id = seller.Id, name = seller.Name }, seller);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetSeller), new { id = seller.Id, name = seller.Name }, seller);
         }
 
         // DELETE: api/Seller/5

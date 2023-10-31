@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestExersize.Models;
@@ -27,9 +21,9 @@ namespace TestExersize.Controllers
         public async Task<ActionResult<IEnumerable<Material>>> GetMaterialItems()
         {
           if (_context.MaterialItems == null)
-          {
-              return NotFound();
-          }
+            {
+                return NotFound();
+            }
             return await _context.MaterialItems.ToListAsync();
         }
 
@@ -38,10 +32,10 @@ namespace TestExersize.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Material>> GetMaterial(int id)
         {
-          if (_context.MaterialItems == null)
-          {
-              return NotFound();
-          }
+            if (_context.MaterialItems == null)
+            {
+                return NotFound();
+            }
             var material = await _context.MaterialItems.FindAsync(id);
 
             if (material == null)
@@ -57,14 +51,14 @@ namespace TestExersize.Controllers
         [HttpPost]
         public async Task<ActionResult<Material>> PostMaterial(Material material)
         {
-          if (_context.MaterialItems == null)
-          {
-              return Problem("Entity set 'TestExersizeContext.MaterialItems'  is null.");
-          }
+            if (_context.MaterialItems == null)
+            {
+                return Problem("Entity set 'TestExersizeContext.MaterialItems'  is null.");
+            }
 
           //проверка на сущестование продавца
-          int sellerId=material.SellerId;
-          var seller = await _context.SellerItems.FindAsync(sellerId);
+            int sellerId=material.SellerId;
+            var seller = await _context.SellerItems.FindAsync(sellerId);
 
             if (seller == null)
             {
@@ -83,20 +77,20 @@ namespace TestExersize.Controllers
         [HttpPost("{id}")]
         public async Task<ActionResult<Material>> UpdateMaterial(int id, Material material){
             if (_context.MaterialItems == null)
-          {
+            {
               return NotFound();
-          }
+            }
             var updatingMaterial = await _context.MaterialItems.FindAsync(id);
 
             if (updatingMaterial == null)
             {
                 return NotFound();
             }
-             _context.MaterialItems.Remove(updatingMaterial);//удаление старого материала
-             _context.MaterialItems.Add(material);//добавление нового материала
+            _context.MaterialItems.Remove(updatingMaterial);//удаление старого материала
+            _context.MaterialItems.Add(material);//добавление нового материала
              
-             await _context.SaveChangesAsync();
-             return CreatedAtAction(nameof(GetMaterial), new { id = material.Id, name=material.Name, price=material.Price,
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetMaterial), new { id = material.Id, name=material.Name, price=material.Price,
             sellerId=material.SellerId }, material);
 
         }
