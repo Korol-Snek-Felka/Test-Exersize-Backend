@@ -1,5 +1,5 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TestExersize.Models;
 
 namespace TestExersize.Controllers
@@ -8,117 +8,53 @@ namespace TestExersize.Controllers
     [ApiController]
     public class MaterialController : ControllerBase
     {
-        private readonly TestExersizeContext _context;
+        private readonly IMediator _mediator;
+        private readonly MaterialExampleDataStore _context;
 
-        public MaterialController(TestExersizeContext context)
+        public MaterialController(MaterialExampleDataStore context, IMediator mediator)
         {
+            _mediator = mediator;
             _context = context;
         }
 
-        // GET
-        // получение списка всех материалов
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Material>>> GetMaterialItems()
+        //получение списка всех материалов
+        [HttpGet(Name = "GetAllMaterials")]
+        public async Task<ActionResult> GetMaterials()
         {
-          if (_context.MaterialItems == null)
-            {
-                return NotFound();
-            }
-            return await _context.MaterialItems.ToListAsync();
+        var materials = await _mediator.Send(new GetMaterialsQuery());
+        return Ok(materials);
         }
 
-        // GET
-        // получение информации об материале по его id
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Material>> GetMaterial(int id)
+        //добавление материала
+        [HttpPost(Name = "AddMAterial")]
+        public async Task<ActionResult> AddMaterial([FromBody]Material material)
         {
-            if (_context.MaterialItems == null)
-            {
-                return NotFound();
-            }
-            var material = await _context.MaterialItems.FindAsync(id);
-
-            if (material == null)
-            {
-                return NotFound();
-            }
-
-            return material;
+        var materialToReturn = await _mediator.Send(new AddMaterialCommand(material));
+        return CreatedAtRoute("GetMaterialById", new { id = materialToReturn.Id}, materialToReturn);
         }
 
-        // POST: api/Material
-        // создание нового материала с указанием продавца
-        [HttpPost]
-        public async Task<ActionResult<Material>> PostMaterial(Material material)
+        //получение информации об материале по его айди
+        [HttpGet("{id:int}", Name = "GetMaterialById")]
+        public async Task<ActionResult> GetMaterialById(int id)
         {
-            if (_context.MaterialItems == null)
-            {
-                return Problem("Entity set 'TestExersizeContext.MaterialItems'  is null.");
-            }
+        var material = await _mediator.Send(new GetMaterialByIdQuery(id));
 
-          //проверка на сущестование продавца
-            int sellerId=material.SellerId;
-            var seller = await _context.SellerItems.FindAsync(sellerId);
-
-            if (seller == null)
-            {
-                return Problem("This seller does not exist! Enter seller before material!");
-            }
-
-            _context.MaterialItems.Add(material);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetMaterial), new { id = material.Id, name=material.Name, price=material.Price,
-            sellerId=material.SellerId }, material);
+        return Ok(material);
         }
 
-        // POST: api/Material
-        // обновление информации о материале
-        [HttpPost("{id}")]
-        public async Task<ActionResult<Material>> UpdateMaterial(int id, Material material){
-            if (_context.MaterialItems == null)
-            {
-              return NotFound();
-            }
-            var updatingMaterial = await _context.MaterialItems.FindAsync(id);
-
-            if (updatingMaterial == null)
-            {
-                return NotFound();
-            }
-            _context.MaterialItems.Remove(updatingMaterial);//удаление старого материала
-            _context.MaterialItems.Add(material);//добавление нового материала
-             
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetMaterial), new { id = material.Id, name=material.Name, price=material.Price,
-            sellerId=material.SellerId }, material);
-
-        }
-
-        // DELETE: api/Material/5
         //удаление материала
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMaterial(int id)
-        {
-            if (_context.MaterialItems == null)
-            {
-                return NotFound();
-            }
-            var material = await _context.MaterialItems.FindAsync(id);
-            if (material == null)
-            {
-                return NotFound();
-            }
-
-            _context.MaterialItems.Remove(material);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+        [HttpDelete(Name = "DeleteMaterial")]
+        public async Task<ActionResult> DeleteMaterial(int id){
+            var material = await _mediator.Send(new DeleteMaterialQuery(id));
+            return Ok(material);
         }
 
-        private bool MaterialExists(int id)
+        //обновление информации о материале
+        [HttpPost("{id:int}",Name = "UpdateMaterial")]
+        public async Task<ActionResult> UpdateMaterial(int id, [FromBody]Material material)
         {
-            return (_context.MaterialItems?.Any(e => e.Id == id)).GetValueOrDefault();
+        var materialToReturn = await _mediator.Send(new UpdateMaterialCommand(id,material));
+        return CreatedAtRoute("GetMaterialById", new { id = materialToReturn.Id}, materialToReturn);
         }
     }
 }

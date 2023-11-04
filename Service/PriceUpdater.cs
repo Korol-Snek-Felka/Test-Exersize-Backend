@@ -1,5 +1,5 @@
 using Hangfire;
-using TestExersize.Models;
+
 public class PriceUpdater
 {
     private readonly IServiceProvider _serviceProvider;
@@ -9,25 +9,21 @@ public class PriceUpdater
         _serviceProvider = serviceProvider;
     }
 
-    //метод для обновления цены
     [AutomaticRetry(Attempts = 0)] // Перезапуск задачи в случае ошибки
     public void UpdatePrices()
     {
         using (var scope = _serviceProvider.CreateScope())
         {
-            var dbContext = scope.ServiceProvider.GetRequiredService<TestExersizeContext>();
-            var materials = dbContext.MaterialItems.ToList();
+            var materialDataStore = scope.ServiceProvider.GetRequiredService<MaterialExampleDataStore>();
+            var materials = materialDataStore.GetAllMaterials().Result;
 
             Random random = new Random();
 
             foreach (var material in materials)
             {
-                int priceChange = random.Next(1, 101);//цена увеличивается на от 1 до 100
+                int priceChange = random.Next(1, 101); // Цена увеличивается на 1 - 100 единиц
                 material.Price += priceChange;
             }
-
-            dbContext.SaveChanges();
         }
     }
 }
-

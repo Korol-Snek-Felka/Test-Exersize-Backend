@@ -299,3 +299,5 @@ C:\Users\danan\Downloads\TestExersize\bin\Debug\net7.0\Hangfire.MemoryStorage.dl
 C:\Users\danan\Downloads\TestExersize\bin\Debug\net7.0\FluentValidation.dll
 C:\Users\danan\Downloads\TestExersize\bin\Debug\net7.0\FluentValidation.AspNetCore.dll
 C:\Users\danan\Downloads\TestExersize\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\danan\Downloads\TestExersize\bin\Debug\net7.0\MediatR.dll
+C:\Users\danan\Downloads\TestExersize\bin\Debug\net7.0\MediatR.Contracts.dll

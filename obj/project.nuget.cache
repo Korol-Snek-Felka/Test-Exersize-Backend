@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EoGgp+M4XedHGomX5Ii5pN23xr/4qK/klkuuKxPBlurGGsMcNyTriTSYhdBE4pjKErCGYOWpY6TB+7CWTtdk9w==",
+  "dgSpecHash": "8oZFOstFrJRq0bqAcEmMRpDKSDwK7AJ3DpYZIoWRA7eR0BMjF8lsqqKE0TJqyi24/sZ2BuWCCYk3Wghx39c2iw==",
   "success": true,
   "projectFilePath": "C:\\Users\\danan\\Downloads\\TestExersize\\TestExersize.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,8 @@
     "C:\\Users\\danan\\.nuget\\packages\\hangfire.netcore\\1.8.6\\hangfire.netcore.1.8.6.nupkg.sha512",
     "C:\\Users\\danan\\.nuget\\packages\\hangfire.sqlserver\\1.8.6\\hangfire.sqlserver.1.8.6.nupkg.sha512",
     "C:\\Users\\danan\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\danan\\.nuget\\packages\\mediatr\\12.1.1\\mediatr.12.1.1.nupkg.sha512",
+    "C:\\Users\\danan\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\danan\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\danan\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\danan\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
