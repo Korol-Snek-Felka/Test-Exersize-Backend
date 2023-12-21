@@ -1,5 +1,9 @@
-using MediatR;
 using TestExersize.Models;
+using MediatR; 
+
+// объявление запроса на получение материала по его айди.
+public record GetMaterialByIdQuery(int Id) : IRequest<Material>;
+
 
 // обработчик получения материала по его айди
 public class GetMaterialByIdHandler : IRequestHandler<GetMaterialByIdQuery, Material>

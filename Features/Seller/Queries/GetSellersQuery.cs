@@ -1,5 +1,9 @@
-using MediatR;
 using TestExersize.Models;
+using MediatR;
+
+// объявление запросов на получение списка всех продавцов
+public record GetSellersQuery() : IRequest<IEnumerable<Seller>>;
+
 
 // обработчик получения списка всех продавцов
 public class GetSellersHandler : IRequestHandler<GetSellersQuery, IEnumerable<Seller>>

@@ -1,5 +1,9 @@
-using MediatR;
 using TestExersize.Models;
+using MediatR;
+
+// объявление запроса на удаление материала
+public record DeleteMaterialQuery(int Id) : IRequest<IEnumerable<Material>>;
+
 
 // обработчик удаления материала
 public class DeleteMaterialHandler : IRequestHandler<DeleteMaterialQuery, IEnumerable<Material>> 

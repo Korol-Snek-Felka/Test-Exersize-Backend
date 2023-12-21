@@ -1,5 +1,9 @@
-using MediatR;
 using TestExersize.Models;
+using MediatR;
+
+// объявление запроса на получение списка всех метариалов
+public record GetMaterialsQuery() : IRequest<IEnumerable<Material>>;
+
 
 // обработчик получения списка всех материалов
 public class GetMaterialsHandler : IRequestHandler<GetMaterialsQuery, IEnumerable<Material>>

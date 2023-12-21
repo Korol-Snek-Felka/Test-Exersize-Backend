@@ -1,5 +1,9 @@
-using MediatR;
 using TestExersize.Models;
+using MediatR;
+
+// объявление команды на обновление материала
+public record UpdateMaterialCommand(int Id, Material Material) : IRequest<Material>;
+
 
 // обработчик обновления материала
 public class UpdateMaterialHandler : IRequestHandler<UpdateMaterialCommand, Material> 

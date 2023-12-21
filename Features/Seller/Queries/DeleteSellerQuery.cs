@@ -1,5 +1,9 @@
-using MediatR;
 using TestExersize.Models;
+using MediatR;
+
+// объявление запроса на удаление продавца
+public record DeleteSellerQuery(int Id) : IRequest<IEnumerable<Seller>>;
+
 
 // обработчик удаления материала
 public class DeleteSellerHandler : IRequestHandler<DeleteSellerQuery, IEnumerable<Seller>> 

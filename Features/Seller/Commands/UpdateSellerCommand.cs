@@ -1,5 +1,9 @@
-using MediatR;
 using TestExersize.Models;
+using MediatR;
+
+// объявление команды на обновление продавца.
+public record UpdateSellerCommand(int Id, Seller Seller) : IRequest<Seller>;
+
 
 // обработчик обновления продавца
 public class UpdateSellerHandler : IRequestHandler<UpdateSellerCommand, Seller> 

@@ -1,5 +1,9 @@
-using MediatR;
 using TestExersize.Models;
+using MediatR;
+
+// объявление команды на добавление материала
+public record AddMaterialCommand(Material Material) : IRequest<Material>;
+
 
 // обработчик добавления материала
 public class AddMaterialHandler : IRequestHandler<AddMaterialCommand, Material> 

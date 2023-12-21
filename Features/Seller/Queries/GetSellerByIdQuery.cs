@@ -1,5 +1,9 @@
-using MediatR;
 using TestExersize.Models;
+using MediatR;
+
+// объявление запроса на получение продавца по его айди
+public record GetSellerByIdQuery(int Id) : IRequest<Seller>;
+
 
 // обработчик получения продавца по его айди
 public class GetSellerByIdHandler : IRequestHandler<GetSellerByIdQuery, Seller>
